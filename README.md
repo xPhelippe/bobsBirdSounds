@@ -1,2 +1,9 @@
 # bobsBirdSounds
-A project to scrape the sounds of birds for the game Wingspan and add them to home assistant
+A project to scrape the sounds of birds for the game Wingspan and add them to home assistant. The end goal for the project was to be able to ask a voice assistant to play any bird from the card game and hear it respond with that bird's call. The final setup uses bird noises from [https://www.xeno-canto.org](https://www.xeno-canto.org) stored on a small Home assistant server that I have set up with voice assistant.
+This repo is not meant to be a comprehensive guide on the setup. It is intended to be a store for the python scripts I made to download all the bird noises and configure home assistant to use them.
+## common_latin_bird_names.csv
+This file contains all of the bird names and their latin equivalent from the board game Wingspan. The list was created by using CoPilot to search the internet for a file that contains all of the bird sounds. The file I found was in a format that was difficult to parse, so I use CoPilot to extract all the bird names from the file. Finally, I used CoPilot to format the data into a nice CSV
+## fetch_bird_noises.py
+Once I had all of the bird names, I used the website [https://www.xeno-canto.org](https://www.xeno-canto.org) to grab all the bird noises. This file is a selenium script that uses the latin name of each bird to navigate to that bird's web page and download 5 bird noises on the criteria that they are in between 20s and 2min in length. I then listened to all of the bird noises to choose one for each bird. Those noises were then copied over to my home assistant server using samba
+## createbirdconfig.py
+Once I had all the bird noises downloaded on the server, I created this script to generate the yaml file for the automation to play the specific bird noise I needed. I was unaware of [PyYaml](https://pypi.org/project/PyYAML/) when I created the project so I used basic string manipulation and file appending to create the large yaml file. 
